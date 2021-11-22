@@ -1,6 +1,6 @@
 {
   "name": "@opencreek/eslint-plugin-opencreek",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Disalows relative path across the baseUrl of your tsconfig",
   "type": "module",
   "keywords": [
