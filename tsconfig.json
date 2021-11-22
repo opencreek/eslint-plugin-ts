@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "src",
+    "outDir": "build",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
