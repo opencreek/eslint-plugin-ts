@@ -33,6 +33,13 @@ export default creator<Options, MessageIds>({
   create(context, options) {
     return {
       ImportDeclaration(node) {
+        context.report({
+          node: node,
+          messageId: "test",
+          data: {
+
+          }
+        })
         console.dir(context);
         console.dir(options);
         console.dir(node);

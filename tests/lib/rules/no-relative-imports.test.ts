@@ -8,19 +8,26 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run("my-rule", noRelativeImports, {
-  valid: [
-    {
-      code: 'import {foo} from "bla"',
-    },
-    {
-      code: 'import {foo} from "test"',
-      options: [
-        {
-          baseUrl: "src",
-        },
-      ],
-    },
-  ],
-
-  invalid: [],
+  invalid: [{
+    code: "import {foo} from \"bla\"",
+    errors: [{
+      messageId: "test"
+    }]
+  }],
+  valid: []
+  // invalid: [
+  //   {
+  //     code: 'import {foo} from "bla"',
+  //   },
+  //   {
+  //     code: 'import {foo} from "test"',
+  //     options: [
+  //       {
+  //         baseUrl: "src",
+  //       },
+  //     ],
+  //   },
+  // ],
+  //
+  // valid: [],
 });

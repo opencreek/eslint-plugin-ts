@@ -27,8 +27,7 @@
     "test2": "node --loader ts-node/esm.mjs ./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.4.0",
-    "requireindex": "^1.2.0"
+    "@typescript-eslint/experimental-utils": "^5.4.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.2.0",
