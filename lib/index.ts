@@ -8,12 +8,11 @@ import noRelativeImports from "./rules/no-relative-imports";
 // Requirements
 //------------------------------------------------------------------------------
 
-
 //------------------------------------------------------------------------------
 // Plugin Definition
 //------------------------------------------------------------------------------
 // import all rules in lib/rules
 
 export const rules = {
-    "no-relative-imports": noRelativeImports
-}
+  "no-relative-imports": noRelativeImports,
+};
