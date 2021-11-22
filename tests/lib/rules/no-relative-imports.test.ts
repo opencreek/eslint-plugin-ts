@@ -7,7 +7,7 @@ const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
 });
 
-const process = require("process");
+import process from "process";
 
 const spy = jest.spyOn(process, "cwd");
 spy.mockReturnValue("/");
@@ -32,11 +32,11 @@ ruleTester.run("my-rule", noRelativeImports, {
       code: 'import {foo} from "bla/test"',
       filename: "/src/nested/deep/test.js",
     },
-      {
-          options: [{ baseUrl: "./src" }],
-          code: 'import {foo} from "../../../bla/test"',
-          filename: "/src/nested/deep/test.js",
-      },
+    {
+      options: [{ baseUrl: "./src" }],
+      code: 'import {foo} from "../../../bla/test"',
+      filename: "/src/nested/deep/test.js",
+    },
     {
       options: [{ baseUrl: "./src" }],
       code: 'import {foo} from "../bla/test"',

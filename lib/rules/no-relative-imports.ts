@@ -31,7 +31,7 @@ export default creator<Options, MessageIds>({
     ],
   },
   defaultOptions: [],
-  create(context, options) {
+  create(context) {
     return {
       ImportDeclaration(node) {
         const fileName = context.getPhysicalFilename?.();
@@ -51,9 +51,9 @@ export default creator<Options, MessageIds>({
         console.log(relativeFileName);
         console.log(levels);
         if (node.source.value.startsWith(levelImport)) {
-          const withoutLevels = node.source.value.replace(levelImport, "")
+          const withoutLevels = node.source.value.replace(levelImport, "");
           // we go behond the baseURl
-          if (withoutLevels.startsWith("..")) return
+          if (withoutLevels.startsWith("..")) return;
 
           context.report({
             node: node.source,
