@@ -40,7 +40,7 @@ export default creator<Options, MessageIds>({
         }
         console.log("==============================\nfilename: ");
         console.log(fileName);
-        const relativeFileName = fileName.replace(__dirname, "");
+        const relativeFileName = fileName.replace(process.cwd(), "");
         const levels = relativeFileName.split("/").length - 1;
         console.log(relativeFileName);
         console.log(levels);
