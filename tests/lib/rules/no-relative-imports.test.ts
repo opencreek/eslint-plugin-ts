@@ -20,7 +20,7 @@ ruleTester.run("my-rule", noRelativeImports, {
       filename: "/src/nested/deep/test.js",
       errors: [
         {
-          messageId: "test",
+          messageId: "standard-message",
         },
       ],
       output: 'import {foo} from "bla/test"',

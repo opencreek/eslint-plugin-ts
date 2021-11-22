@@ -6,7 +6,7 @@ const creator = RuleCreator((rule) => rule);
 export type Options = {
   baseUrl?: string;
 }[];
-export type MessageIds = "test";
+export type MessageIds = "standard-message";
 export default creator<Options, MessageIds>({
   name: "no-relative-imports",
   meta: {
@@ -17,7 +17,7 @@ export default creator<Options, MessageIds>({
     },
     fixable: "code",
     messages: {
-      test: "test",
+      "standard-message": "No relative imports, that go to back to the baseURl",
     },
     schema: [
       {
@@ -57,7 +57,7 @@ export default creator<Options, MessageIds>({
 
           context.report({
             node: node.source,
-            messageId: "test",
+            messageId: "standard-message",
             data: {},
             fix: (fixer) => {
               return fixer.replaceText(
