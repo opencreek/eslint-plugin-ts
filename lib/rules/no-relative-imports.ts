@@ -33,11 +33,24 @@ export default creator<Options, MessageIds>({
   create(context, options) {
     return {
       ImportDeclaration(node) {
-        context.report({
-          node: node,
-          messageId: "test",
-          data: {},
-        });
+        const fileName = context.getPhysicalFilename?.();
+        if (fileName == undefined) {
+          console.error("Got no physical file name ?!");
+          return;
+        }
+        console.log("==============================\nfilename: ");
+        console.log(fileName);
+        const relativeFileName = fileName.replace(__dirname, "");
+        const levels = relativeFileName.split("/").length - 1;
+        console.log(relativeFileName);
+        console.log(levels);
+        if (node.source.value.startsWith("../".repeat(levels))) {
+          context.report({
+            node: node,
+            messageId: "test",
+            data: {},
+          });
+        }
         console.dir(context);
         console.dir(options);
         console.dir(node);
