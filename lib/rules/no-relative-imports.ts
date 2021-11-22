@@ -41,21 +41,32 @@ export default creator<Options, MessageIds>({
         }
         console.log("==============================\nfilename: ");
         console.log(fileName);
-        const basePath = path.resolve(process.cwd(), context.options?.[0]?.baseUrl ?? ".");
+        const basePath = path.resolve(
+          process.cwd(),
+          context.options?.[0]?.baseUrl ?? "."
+        );
         const relativeFileName = fileName.replace(basePath, "");
         const levels = relativeFileName.split("/").length - 2;
+        const levelImport = "../".repeat(levels);
         console.log(relativeFileName);
         console.log(levels);
-        if (node.source.value.startsWith("../".repeat(levels))) {
+        if (node.source.value.startsWith(levelImport)) {
+          const withoutLevels = node.source.value.replace(levelImport, "")
+          // we go behond the baseURl
+          if (withoutLevels.startsWith("..")) return
+
           context.report({
             node: node.source,
             messageId: "test",
             data: {},
+            fix: (fixer) => {
+              return fixer.replaceText(
+                node.source,
+                '"' + node.source.value.replace(levelImport, "") + '"'
+              );
+            },
           });
         }
-        console.dir(context);
-        console.dir(options);
-        console.dir(node);
       },
     };
   },
