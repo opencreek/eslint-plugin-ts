@@ -36,10 +36,8 @@ export default creator<Options, MessageIds>({
         context.report({
           node: node,
           messageId: "test",
-          data: {
-
-          }
-        })
+          data: {},
+        });
         console.dir(context);
         console.dir(options);
         console.dir(node);

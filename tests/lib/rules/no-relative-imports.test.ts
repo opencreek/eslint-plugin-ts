@@ -8,13 +8,17 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run("my-rule", noRelativeImports, {
-  invalid: [{
-    code: "import {foo} from \"bla\"",
-    errors: [{
-      messageId: "test"
-    }]
-  }],
-  valid: []
+  invalid: [
+    {
+      code: 'import {foo} from "bla"',
+      errors: [
+        {
+          messageId: "test",
+        },
+      ],
+    },
+  ],
+  valid: [],
   // invalid: [
   //   {
   //     code: 'import {foo} from "bla"',
