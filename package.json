@@ -10,7 +10,7 @@
   ],
   "main": "./dist/lib/index.js",
   "files": [
-    "dist/**"
+    "build/**"
   ],
   "author": "Opencreek Technology<oss@opencreek.tech>",
   "repository": "https://github.com/opencreek/provider-stack",
