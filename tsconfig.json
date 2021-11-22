@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "None",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "src",
@@ -17,7 +16,8 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "importsNotUsedAsValues": "error",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "rootDirs": ["src/"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules"]
