@@ -1,4 +1,5 @@
 import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils";
+import path from "path";
 
 const creator = RuleCreator((rule) => rule);
 
@@ -40,13 +41,14 @@ export default creator<Options, MessageIds>({
         }
         console.log("==============================\nfilename: ");
         console.log(fileName);
-        const relativeFileName = fileName.replace(process.cwd(), "");
-        const levels = relativeFileName.split("/").length - 1;
+        const basePath = path.resolve(process.cwd(), context.options?.[0]?.baseUrl ?? ".");
+        const relativeFileName = fileName.replace(basePath, "");
+        const levels = relativeFileName.split("/").length - 2;
         console.log(relativeFileName);
         console.log(levels);
         if (node.source.value.startsWith("../".repeat(levels))) {
           context.report({
-            node: node,
+            node: node.source,
             messageId: "test",
             data: {},
           });
