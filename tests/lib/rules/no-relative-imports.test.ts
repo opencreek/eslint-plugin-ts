@@ -7,20 +7,40 @@ const ruleTester = new RuleTester({
   parser: "@typescript-eslint/parser",
 });
 
+import process from "process";
+
+const spy = jest.spyOn(process, "cwd");
+spy.mockReturnValue("/");
+
 ruleTester.run("my-rule", noRelativeImports, {
-  valid: [
+  invalid: [
     {
-      code: 'import {foo} from "bla"',
-    },
-    {
-      code: 'import {foo} from "test"',
-      options: [
+      options: [{ baseUrl: "./src" }],
+      code: 'import {foo} from "../../bla/test"',
+      filename: "/src/nested/deep/test.js",
+      errors: [
         {
-          baseUrl: "src",
+          messageId: "standard-message",
         },
       ],
+      output: 'import {foo} from "bla/test"',
     },
   ],
-
-  invalid: [],
+  valid: [
+    {
+      options: [{ baseUrl: "./src" }],
+      code: 'import {foo} from "bla/test"',
+      filename: "/src/nested/deep/test.js",
+    },
+    {
+      options: [{ baseUrl: "./src" }],
+      code: 'import {foo} from "../../../bla/test"',
+      filename: "/src/nested/deep/test.js",
+    },
+    {
+      options: [{ baseUrl: "./src" }],
+      code: 'import {foo} from "../bla/test"',
+      filename: "/src/nested/deep/test.js",
+    },
+  ],
 });

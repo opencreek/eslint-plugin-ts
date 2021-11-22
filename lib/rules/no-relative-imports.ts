@@ -1,11 +1,12 @@
 import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils";
+import path from "path";
 
 const creator = RuleCreator((rule) => rule);
 
 export type Options = {
   baseUrl?: string;
 }[];
-export type MessageIds = "test";
+export type MessageIds = "standard-message";
 export default creator<Options, MessageIds>({
   name: "no-relative-imports",
   meta: {
@@ -16,7 +17,7 @@ export default creator<Options, MessageIds>({
     },
     fixable: "code",
     messages: {
-      test: "test",
+      "standard-message": "No relative imports, that go to back to the baseURl",
     },
     schema: [
       {
@@ -30,12 +31,41 @@ export default creator<Options, MessageIds>({
     ],
   },
   defaultOptions: [],
-  create(context, options) {
+  create(context) {
     return {
       ImportDeclaration(node) {
-        console.dir(context);
-        console.dir(options);
-        console.dir(node);
+        const fileName = context.getPhysicalFilename?.();
+        if (fileName == undefined) {
+          console.error("Got no physical file name ?!");
+          return;
+        }
+
+        const basePath = path.resolve(
+          process.cwd(),
+          context.options?.[0]?.baseUrl ?? "."
+        );
+        const relativeFileName = fileName.replace(basePath, "");
+        const levels = relativeFileName.split("/").length - 2;
+        const levelImport = "../".repeat(levels);
+
+        if (node.source.value.startsWith(levelImport)) {
+          const withoutLevels = node.source.value.replace(levelImport, "");
+
+          // we go behond the baseURl
+          if (withoutLevels.startsWith("..")) return;
+
+          context.report({
+            node: node.source,
+            messageId: "standard-message",
+            data: {},
+            fix: (fixer) => {
+              return fixer.replaceText(
+                node.source,
+                '"' + node.source.value.replace(levelImport, "") + '"'
+              );
+            },
+          });
+        }
       },
     };
   },
