@@ -16,3 +16,12 @@ import noRelativeImports from "./rules/no-relative-imports";
 export const rules = {
   "no-relative-imports": noRelativeImports,
 };
+
+export const configs = {
+  recommended: {
+    plugins: ["no-relative-imports"],
+    rules: {
+      "no-relative-imports": "error",
+    },
+  },
+};

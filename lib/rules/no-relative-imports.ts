@@ -39,8 +39,7 @@ export default creator<Options, MessageIds>({
           console.error("Got no physical file name ?!");
           return;
         }
-        console.log("==============================\nfilename: ");
-        console.log(fileName);
+
         const basePath = path.resolve(
           process.cwd(),
           context.options?.[0]?.baseUrl ?? "."
@@ -48,10 +47,10 @@ export default creator<Options, MessageIds>({
         const relativeFileName = fileName.replace(basePath, "");
         const levels = relativeFileName.split("/").length - 2;
         const levelImport = "../".repeat(levels);
-        console.log(relativeFileName);
-        console.log(levels);
+
         if (node.source.value.startsWith(levelImport)) {
           const withoutLevels = node.source.value.replace(levelImport, "");
+
           // we go behond the baseURl
           if (withoutLevels.startsWith("..")) return;
 
