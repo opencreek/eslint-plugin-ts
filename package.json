@@ -1,7 +1,7 @@
 {
-    "name": "@opencreek/eslint-plugin-opencreek",
+    "name": "@opencreek/eslint-plugin",
     "version": "0.2.0",
-    "description": "Disalows relative path across the baseUrl of your tsconfig",
+    "description": "Disallows relative path across the baseUrl of your tsconfig",
     "type": "module",
     "keywords": [
         "eslint",
@@ -13,7 +13,7 @@
         "build/**"
     ],
     "author": "Opencreek Technology<oss@opencreek.tech>",
-    "repository": "https://github.com/opencreek/provider-stack",
+    "repository": "https://github.com/opencreek/eslint-plugin",
     "license": "MIT",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/",
