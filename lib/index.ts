@@ -3,7 +3,7 @@
  * @author Opencreek Technology UG
  */
 
-import noRelativeImports from "./rules/no-relative-imports";
+import noRelativeImports from "./rules/no-relative-imports"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -14,13 +14,13 @@ import noRelativeImports from "./rules/no-relative-imports";
 // import all rules in lib/rules
 
 export const rules = {
-  "no-relative-imports": noRelativeImports,
-};
+    "no-relative-imports": noRelativeImports,
+}
 
 export const configs = {
-  recommended: {
-    rules: {
-      "@opencreek/opencreek/no-relative-imports": "error",
+    recommended: {
+        rules: {
+            "@opencreek/opencreek/no-relative-imports": "error",
+        },
     },
-  },
-};
+}

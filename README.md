@@ -22,7 +22,7 @@ Add `no-relative-base-url-imports` to the plugins section of your `.eslintrc` co
 
 ```json
 {
-  "plugins": ["no-relative-base-url-imports"]
+    "plugins": ["no-relative-base-url-imports"]
 }
 ```
 
@@ -30,12 +30,12 @@ Then configure the rules you want to use under the rules section.
 
 ```json
 {
-  "rules": {
-    "no-relative-base-url-imports/rule-name": 2
-  }
+    "rules": {
+        "no-relative-base-url-imports/rule-name": 2
+    }
 }
 ```
 
 ## Supported Rules
 
-- Fill in provided rules here
+-   Fill in provided rules here
