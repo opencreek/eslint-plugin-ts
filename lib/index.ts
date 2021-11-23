@@ -4,6 +4,7 @@
  */
 
 import noRelativeImports from "./rules/no-relative-imports"
+import nextjsNoDefaultExportFunction from "./rules/nextjs-pages-no-default-export-function"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -15,6 +16,7 @@ import noRelativeImports from "./rules/no-relative-imports"
 
 export const rules = {
     "no-relative-imports": noRelativeImports,
+    "nextjs-pages-no-default-export-function": nextjsNoDefaultExportFunction,
 }
 
 export const configs = {
