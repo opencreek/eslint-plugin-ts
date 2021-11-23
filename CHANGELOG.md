@@ -2,11 +2,11 @@
 
 #### 🚀 Enhancement
 
-- Add no-relative-imports rule [#1](https://github.com/opencreek/eslint-plugin-opencreek/pull/1) ([@reckter](https://github.com/reckter))
+-   Add no-relative-imports rule [#1](https://github.com/opencreek/eslint-plugin-opencreek/pull/1) ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
-- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+-   Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
 
 ---
 
@@ -14,8 +14,8 @@
 
 #### ⚠️ Pushed to `main`
 
-- :sparkles: Configure build dir ([@reckter](https://github.com/reckter))
+-   :sparkles: Configure build dir ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
-- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+-   Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
