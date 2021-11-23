@@ -73,16 +73,6 @@ export default creator<Options, MessageIds>({
                 const isInBasePath = filePath.startsWith(basePath)
                 const nonRelativeImportPathWithoutBase =
                     nonRelativeImportPath.replace(basePath + "/", "")
-                console.dir({
-                    isInBasePath,
-                    nonRelativeImportPathWithoutBase,
-                    filePath,
-                    basePath,
-                    nonRelativeImportPath,
-                    levelImport,
-                    original: node.source.value,
-                    options,
-                })
 
                 // always remove imports that go past the base URL
                 if (node.source.value.startsWith(levelImport) && isInBasePath) {
