@@ -27,6 +27,7 @@
         "test2": "node --loader ts-node/esm.mjs ./node_modules/mocha/bin/mocha"
     },
     "dependencies": {
+        "@opencreek/ext": "^1.5.2",
         "@typescript-eslint/experimental-utils": "^5.4.0"
     },
     "devDependencies": {
