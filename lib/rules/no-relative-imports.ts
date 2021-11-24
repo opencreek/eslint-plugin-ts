@@ -7,6 +7,7 @@ export type Options = {
     baseUrl?: string
     allowLocalImports?: "inside-base-path" | "local"
 }[]
+
 export type MessageIds = "no-relative-import"
 export default creator<Options, MessageIds>({
     name: "no-relative-imports",
