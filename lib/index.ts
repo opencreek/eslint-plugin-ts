@@ -23,6 +23,7 @@ export const configs = {
     recommended: {
         rules: {
             "@opencreek/no-relative-imports": "error",
+            "@opencreek/nextjs-pages-no-default-export-function": "error",
         },
     },
 }
