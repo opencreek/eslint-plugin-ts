@@ -20,7 +20,7 @@ export const rules = {
 export const configs = {
     recommended: {
         rules: {
-            "@opencreek/opencreek/no-relative-imports": "error",
+            "@opencreek/ts/no-relative-imports": "error",
         },
     },
 }

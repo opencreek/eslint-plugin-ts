@@ -5,8 +5,10 @@ const creator = RuleCreator((rule) => rule)
 
 export type Options = {
     baseUrl?: string
+    allowLocalImports?: "inside-base-path" | "local"
 }[]
-export type MessageIds = "standard-message"
+
+export type MessageIds = "no-relative-import"
 export default creator<Options, MessageIds>({
     name: "no-relative-imports",
     meta: {
@@ -17,8 +19,7 @@ export default creator<Options, MessageIds>({
         },
         fixable: "code",
         messages: {
-            "standard-message":
-                "No relative imports, that go to back to the baseURl",
+            "no-relative-import": "No relative imports",
         },
         schema: [
             {
@@ -35,6 +36,23 @@ export default creator<Options, MessageIds>({
     create(context) {
         return {
             ImportDeclaration(node) {
+                const options = context.options?.[0] ?? {}
+
+                // no relative import
+                if (!node.source.value.startsWith(".")) {
+                    return
+                }
+
+                if (
+                    options.allowLocalImports === "local" ||
+                    options.allowLocalImports === "inside-base-path"
+                ) {
+                    // We start with a "./" followed by a different char, so it's a local import
+                    if (/^\.\/[^.]/.test(node.source.value)) {
+                        return
+                    }
+                }
+
                 const fileName = context.getPhysicalFilename?.()
                 if (fileName == undefined) {
                     console.error("Got no physical file name ?!")
@@ -43,17 +61,30 @@ export default creator<Options, MessageIds>({
 
                 const basePath = path.resolve(
                     process.cwd(),
-                    context.options?.[0]?.baseUrl ?? "."
+                    options.baseUrl ?? "."
                 )
 
-                if (!fileName.startsWith(basePath)) {
-                    return
-                }
-                const relativeFileName = fileName.replace(basePath, "")
-                const levels = relativeFileName.split("/").length - 2
+                const fileNameInsideBasePath = fileName.replace(basePath, "")
+                const levels = fileNameInsideBasePath.split("/").length - 2
                 const levelImport = "../".repeat(levels)
 
-                if (node.source.value.startsWith(levelImport)) {
+                const filePath = path.dirname(fileName)
+
+                const absoluteImportPath = path.resolve(
+                    filePath,
+                    node.source.value
+                )
+                const isInBasePath = filePath.startsWith(basePath)
+                const absoluteImportPathInsideBasePath =
+                    absoluteImportPath.replace(basePath + "/", "")
+
+                // we import something outside of the basePath
+                if (!absoluteImportPath.startsWith(basePath)) {
+                    return
+                }
+
+                // always remove imports that go past the base URL
+                if (node.source.value.startsWith(levelImport) && isInBasePath) {
                     const withoutLevels = node.source.value.replace(
                         levelImport,
                         ""
@@ -64,18 +95,40 @@ export default creator<Options, MessageIds>({
 
                     context.report({
                         node: node.source,
-                        messageId: "standard-message",
+                        messageId: "no-relative-import",
                         data: {},
                         fix: (fixer) => {
                             return fixer.replaceText(
                                 node.source,
-                                '"' +
-                                    node.source.value.replace(levelImport, "") +
-                                    '"'
+                                `"${absoluteImportPathInsideBasePath}"`
                             )
                         },
                     })
+                    return
                 }
+
+                // We report the error, if we disallow relative imports
+                // Or we cross INTO the baseUrl boundary
+                if (
+                    options.allowLocalImports == undefined &&
+                    !absoluteImportPath.startsWith(basePath)
+                ) {
+                    return
+                }
+
+                context.report({
+                    node: node.source,
+                    messageId: "no-relative-import",
+                    data: {},
+                    fix: (fixer) => {
+                        return fixer.replaceText(
+                            node.source,
+                            `"${absoluteImportPathInsideBasePath}"`
+                        )
+                    },
+                })
+
+                return
             },
         }
     },
