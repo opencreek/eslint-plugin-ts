@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "npm",
+    "all-contributors",
+    "first-time-contributor"
+  ],
+  "owner": "opencreek",
+  "repo": "provider-stack",
+  "name": "Opencreek-bot",
+  "email": "oss@opencreek.tech"
+}
