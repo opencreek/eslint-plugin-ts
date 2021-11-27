@@ -1,7 +1,7 @@
 {
-    "name": "@opencreek/eslint-plugin-webpack",
+    "name": "@opencreek/eslint-plugin-storybook",
     "version": "0.3.0",
-    "description": "Disallows relative path across the baseUrl of your tsconfig",
+    "description": "Liniting rules to prevent storybook pitfalls",
     "type": "module",
     "keywords": [
         "eslint",
@@ -23,8 +23,7 @@
         "build": "tsc",
         "lint": "prettier --check . && eslint .",
         "lint:fix": "prettier --write . && eslint --fix .",
-        "test": "jest",
-        "test2": "node --loader ts-node/esm.mjs ./node_modules/mocha/bin/mocha"
+        "test": "jest"
     },
     "dependencies": {
         "@typescript-eslint/experimental-utils": "^5.4.0",

@@ -20,7 +20,7 @@ export const rules = {
 export const configs = {
     recommended: {
         rules: {
-            "@opencreek/webpack/no-default-export-with-modification": "error",
+            "@opencreek/storybook/no-default-export-with-modification": "error",
         },
     },
 }

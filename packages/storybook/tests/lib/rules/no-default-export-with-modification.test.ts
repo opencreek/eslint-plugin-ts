@@ -18,10 +18,6 @@ ruleTester.run(
     {
         valid: [
             {
-                code: "export default function Test() {}\nTest.layout = someLayout",
-                filename: "src/nested/deep/test.js",
-            },
-            {
                 code: "export default function Test() {}",
                 filename: "src/nested/deep/test.js",
             },
