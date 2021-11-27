@@ -28,17 +28,17 @@ jobs:
               id: cache-modules
               with:
                   path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
             - uses: actions/cache@main
               if: steps.cache-modules.outputs.cache-hit != 'true'
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-global
-            - run: npm ci
+            - run: yarn install --frozen-lockfile
               if: steps.cache-modules.outputs.cache-hit != 'true'
               env:
                   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-            - run: npm run build
+            - run: yarn build
             - run: npx auto shipit
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

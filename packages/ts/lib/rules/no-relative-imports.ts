@@ -7,6 +7,7 @@ export type Options = {
     baseUrl?: string
     allowLocalImports?: "inside-base-path" | "local"
 }[]
+
 export type MessageIds = "no-relative-import"
 export default creator<Options, MessageIds>({
     name: "no-relative-imports",
@@ -63,8 +64,8 @@ export default creator<Options, MessageIds>({
                     options.baseUrl ?? "."
                 )
 
-                const relativeFileName = fileName.replace(basePath, "")
-                const levels = relativeFileName.split("/").length - 2
+                const fileNameInsideBasePath = fileName.replace(basePath, "")
+                const levels = fileNameInsideBasePath.split("/").length - 2
                 const levelImport = "../".repeat(levels)
 
                 const filePath = path.dirname(fileName)
@@ -74,7 +75,7 @@ export default creator<Options, MessageIds>({
                     node.source.value
                 )
                 const isInBasePath = filePath.startsWith(basePath)
-                const absoluteImportPathWithoutBase =
+                const absoluteImportPathInsideBasePath =
                     absoluteImportPath.replace(basePath + "/", "")
 
                 // we import something outside of the basePath
@@ -99,7 +100,7 @@ export default creator<Options, MessageIds>({
                         fix: (fixer) => {
                             return fixer.replaceText(
                                 node.source,
-                                `"${absoluteImportPathWithoutBase}"`
+                                `"${absoluteImportPathInsideBasePath}"`
                             )
                         },
                     })
@@ -122,7 +123,7 @@ export default creator<Options, MessageIds>({
                     fix: (fixer) => {
                         return fixer.replaceText(
                             node.source,
-                            `"${absoluteImportPathWithoutBase}"`
+                            `"${absoluteImportPathInsideBasePath}"`
                         )
                     },
                 })

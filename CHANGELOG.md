@@ -1,3 +1,15 @@
+# v0.3.0 (Wed Nov 24 2021)
+
+#### 🚀 Enhancement
+
+- :sparkles: Add option to allow relative imports [#3](https://github.com/opencreek/eslint-plugin-ts/pull/3) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.2.0 (Tue Nov 23 2021)
 
 #### 🚀 Enhancement

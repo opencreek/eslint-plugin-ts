@@ -4,7 +4,6 @@
  */
 
 import noRelativeImports from "./rules/no-relative-imports"
-import nextjsNoDefaultExportFunction from "./rules/nextjs-pages-no-default-export-function"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -16,14 +15,12 @@ import nextjsNoDefaultExportFunction from "./rules/nextjs-pages-no-default-expor
 
 export const rules = {
     "no-relative-imports": noRelativeImports,
-    "nextjs-pages-no-default-export-function": nextjsNoDefaultExportFunction,
 }
 
 export const configs = {
     recommended: {
         rules: {
-            "@opencreek/no-relative-imports": "error",
-            "@opencreek/nextjs-pages-no-default-export-function": "error",
+            "@opencreek/ts/no-relative-imports": "error",
         },
     },
 }

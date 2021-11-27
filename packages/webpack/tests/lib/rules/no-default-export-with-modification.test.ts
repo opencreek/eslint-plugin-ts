@@ -1,4 +1,4 @@
-import nextjsNoDefaultExportFunction from "../../../lib/rules/nextjs-pages-no-default-export-function"
+import nextjsNoDefaultExportFunction from "../../../lib/rules/no-default-export-with-notification"
 import { ESLintUtils } from "@typescript-eslint/experimental-utils"
 
 const RuleTester = ESLintUtils.RuleTester
