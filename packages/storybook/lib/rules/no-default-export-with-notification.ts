@@ -1,4 +1,4 @@
-import {RuleCreator} from "@typescript-eslint/experimental-utils/dist/eslint-utils"
+import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
 import type {
     AssignmentExpression,
     ExpressionStatement,
@@ -41,13 +41,12 @@ export default creator<Options, MessageIds>({
                         if (
                             it.type !== "ExpressionStatement" ||
                             (it as ExpressionStatement).expression.type !==
-                            "AssignmentExpression"
+                                "AssignmentExpression"
                         ) {
                             return false
                         }
 
-                        const expression =
-                            it.expression as AssignmentExpression
+                        const expression = it.expression as AssignmentExpression
                         if (expression.left.type !== "MemberExpression") {
                             return
                         }
@@ -57,9 +56,7 @@ export default creator<Options, MessageIds>({
                         }
 
                         const identifier = left.object as Identifier
-                        return (
-                            functionDeclaration.id?.name === identifier.name
-                        )
+                        return functionDeclaration.id?.name === identifier.name
                     })
 
                     // The bug is not happening
@@ -75,8 +72,7 @@ export default creator<Options, MessageIds>({
                             return [
                                 fixer.removeRange([
                                     node.range[0],
-                                    node.range[0] +
-                                    "export default ".length,
+                                    node.range[0] + "export default ".length,
                                 ]),
                                 fixer.insertTextAfter(
                                     parent,

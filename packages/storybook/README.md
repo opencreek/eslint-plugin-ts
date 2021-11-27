@@ -42,7 +42,6 @@ Then configure the rules you want to use under the rules section.
 
 ## Supported Rules
 
-
 ### `@opencreek/storybook/no-default-export-with-modification` Dissallows `export default function` with modiciation to the exporet value.
 
 Because of how storybook uses acorn, and it interplays with react doc gen and default exports that have values attached, we need to always have them extra.
