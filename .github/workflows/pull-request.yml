@@ -27,7 +27,7 @@ jobs:
             - uses: actions/cache@main
               id: cache-modules
               with:
-                  path: node_modules
+                  path: "**/node_modules"
                   key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
             - uses: actions/cache@main
               if: steps.cache-modules.outputs.cache-hit != 'true'
