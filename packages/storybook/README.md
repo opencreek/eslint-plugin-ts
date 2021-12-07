@@ -1,6 +1,6 @@
 # @opencreek/eslint-plugin-storybook
 
-Liniting ri
+Liniting storybook mistakes
 
 ## Installation
 

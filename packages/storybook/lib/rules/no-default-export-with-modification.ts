@@ -13,11 +13,11 @@ const creator = RuleCreator((rule) => rule)
 export type Options = Record<never, never>[]
 export type MessageIds = "no-default-export-function"
 export default creator<Options, MessageIds>({
-    name: "nextjs-pages-no-default-export-function",
+    name: "no-default-export-with-modification",
     meta: {
         type: "problem",
         docs: {
-            description: "Requires using non-relative imports with baseUrl",
+            description: "Disallow default export with modification",
             recommended: "error",
         },
         fixable: "code",
@@ -35,8 +35,10 @@ export default creator<Options, MessageIds>({
                     const functionDeclaration =
                         node.declaration as FunctionDeclaration
                     const parent = node.parent as Program
+
                     if (parent == null)
                         throw new Error("Can not resolve parent")
+
                     const assignmentToDefault = parent.body.some((it) => {
                         if (
                             it.type !== "ExpressionStatement" ||
@@ -48,11 +50,11 @@ export default creator<Options, MessageIds>({
 
                         const expression = it.expression as AssignmentExpression
                         if (expression.left.type !== "MemberExpression") {
-                            return
+                            return false
                         }
                         const left = expression.left as MemberExpression
                         if (left.object.type !== "Identifier") {
-                            return
+                            return false
                         }
 
                         const identifier = left.object as Identifier
@@ -61,7 +63,7 @@ export default creator<Options, MessageIds>({
 
                     // The bug is not happening
                     if (!assignmentToDefault) {
-                        return
+                        return false
                     }
 
                     context.report({

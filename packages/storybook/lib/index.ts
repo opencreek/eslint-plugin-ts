@@ -3,7 +3,7 @@
  * @author Opencreek Technology UG
  */
 
-import noDefaultExportWithModification from "./rules/no-default-export-with-notification"
+import noDefaultExportWithModification from "./rules/no-default-export-with-modification"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
