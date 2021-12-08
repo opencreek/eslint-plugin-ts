@@ -4,6 +4,7 @@
     "workspaces": [
         "packages/*"
     ],
+    "repository": "https://github.com/opencreek/eslint-plugin-ts",
     "scripts": {
         "test": "lerna run test --parallel",
         "build": "lerna run build --parallel",
