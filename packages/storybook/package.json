@@ -1,6 +1,6 @@
 {
     "name": "@opencreek/eslint-plugin-storybook",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Liniting rules to prevent storybook pitfalls",
     "type": "module",
     "keywords": [
