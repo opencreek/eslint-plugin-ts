@@ -1,5 +1,18 @@
 # (Wed Dec 08 2021)
 
+#### 🚀 Enhancement
+
+- `@opencreek/eslint-plugin-storybook@0.4.0`, `@opencreek/eslint-plugin-ts@0.4.0`
+  - :sparkles: Add all-contributor setup [#13](https://github.com/opencreek/eslint-plugin-ts/pull/13) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
+# (Wed Dec 08 2021)
+
 #### 🐛 Bug Fix
 
 - `@opencreek/eslint-plugin-storybook@0.3.4`, `@opencreek/eslint-plugin-ts@0.3.4`
