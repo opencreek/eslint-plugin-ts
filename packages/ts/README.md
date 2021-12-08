@@ -1,4 +1,4 @@
-# @opencreek/eslint-plugin-ts
+# @opencreek/eslint-plugin-storybook
 
 Disalows relative path across the baseUrl of your tsconfig
 
@@ -10,14 +10,14 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `@opencreek/eslint-plugin-ts`:
+Next, install `@opencreek/eslint-plugin-storybook`:
 
 ```sh
-npm install @opencreek/eslint-plugin-ts --save-dev
+npm install @opencreek/eslint-plugin-storybook --save-dev
 ```
 
 ```sh
-yarn  add --dev @opencreek/eslint-plugin-ts
+yarn  add --dev @opencreek/eslint-plugin-storybook
 ```
 
 ## Usage
@@ -40,8 +40,7 @@ Then configure the rules you want to use under the rules section.
             {
                 "baseUrl": "./src"
             }
-        ],
-        "@opencreek/nextjs-pages-no-default-export-function": "error"
+        ]
     }
 }
 ```
@@ -60,37 +59,4 @@ Config options
     // "in-base-path": Allows everything that does not go back to the base url level (eg: "../../test" in "src/a/b/c/test.ts")
 }
 
-```
-
-### `@opencreek/nextjs-pages-no-default-export-function` Dissallows `export default function` exports in nextjs pages.
-
-Because of how storybook uses acorn, and it interplays with react doc gen and default exports that have values attached, we need to always have them extra.
-This only checks files that are in a `pages` folder currently.
-
-Fails:
-
-```ts
-export default function BlaPage() {
-    //...
-}
-
-BlaPage.Layout = "layout"
-```
-
-Passes:
-
-```ts
-function BlaPage() {
-    //...
-}
-
-BlaPage.Layout = "layout"
-
-export default function BlaPage
-```
-
-```ts
-export default function BlaPage() {
-    //...
-}
 ```

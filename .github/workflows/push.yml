@@ -9,7 +9,7 @@ jobs:
         steps:
             - uses: actions/checkout@main
             - uses: actions/setup-node@main
-            - run: npm audit
+            - run: yarn audit
     lint:
         name: Lint
         runs-on: ubuntu-latest
@@ -19,18 +19,18 @@ jobs:
             - uses: actions/cache@main
               id: cache-modules
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  path: "**/node_modules"
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
             - uses: actions/cache@main
               if: steps.cache-modules.outputs.cache-hit != 'true'
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-global
-            - run: npm ci
+            - run: yarn install --frozen-lockfile
               if: steps.cache-modules.outputs.cache-hit != 'true'
               env:
                   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-            - run: npm run lint
+            - run: yarn lint
     test:
         name: Test
         runs-on: ubuntu-latest
@@ -40,19 +40,19 @@ jobs:
             - uses: actions/cache@main
               id: cache-modules
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  path: "**/node_modules"
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
             - uses: actions/cache@main
               if: steps.cache-modules.outputs.cache-hit != 'true'
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-global
-            - run: npm ci
+            - run: yarn install --frozen-lockfile
               if: steps.cache-modules.outputs.cache-hit != 'true'
               env:
                   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-            - run: npm run test
-            - run: npm run build
+            - run: yarn test
+            - run: yarn build
 
     publish-gpr:
         name: Publish Version
@@ -66,18 +66,18 @@ jobs:
             - uses: actions/cache@main
               id: cache-modules
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                  path: "**/node_modules"
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
             - uses: actions/cache@main
               if: steps.cache-modules.outputs.cache-hit != 'true'
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-global
-            - run: npm ci
+            - run: yarn install --frozen-lockfile
               if: steps.cache-modules.outputs.cache-hit != 'true'
               env:
                   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-            - run: npm run build
+            - run: yarn build
             - run: npx auto shipit
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
