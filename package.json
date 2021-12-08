@@ -11,7 +11,9 @@
         "lint:fix": "prettier --write . && eslint --fix ."
     },
     "devDependencies": {
-        "lerna": "^4.0.0",
-        "auto": "^10.32.3"
+        "@auto-it/all-contributors": "^10.32.3",
+        "@auto-it/first-time-contributor": "^10.32.3",
+        "auto": "^10.32.3",
+        "lerna": "^4.0.0"
     }
 }
