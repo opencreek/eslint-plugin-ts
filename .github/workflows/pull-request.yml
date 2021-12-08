@@ -11,7 +11,7 @@ jobs:
         steps:
             - uses: actions/checkout@main
             - uses: actions/setup-node@main
-            - run: npx auto pr-check -vv --url https://github.com/$GITHUB_REPOSITORY
+            - run: npx auto pr-check --url https://github.com/$GITHUB_REPOSITORY
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
