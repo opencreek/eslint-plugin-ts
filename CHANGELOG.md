@@ -1,3 +1,16 @@
+# (Wed Dec 08 2021)
+
+#### 🐛 Bug Fix
+
+- `@opencreek/eslint-plugin-storybook@0.3.2`, `@opencreek/eslint-plugin-ts@0.3.2`
+  - :rocket: [#10](https://github.com/opencreek/eslint-plugin-ts/pull/10) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.3.0 (Wed Nov 24 2021)
 
 #### 🚀 Enhancement
