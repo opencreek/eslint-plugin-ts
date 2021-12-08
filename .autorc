@@ -2,7 +2,8 @@
   "plugins": [
     "npm",
     "all-contributors",
-    "first-time-contributor"
+    "first-time-contributor",
+    "released"
   ],
   "owner": "opencreek",
   "repo": "eslint-plugin-ts",
