@@ -1,4 +1,4 @@
-# @opencreek/eslint-plugin-storybook
+# @opencreek/eslint-plugin-ts
 
 Disalows relative path across the baseUrl of your tsconfig
 
@@ -10,14 +10,14 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `@opencreek/eslint-plugin-storybook`:
+Next, install `@opencreek/eslint-plugin-ts`:
 
 ```sh
-npm install @opencreek/eslint-plugin-storybook --save-dev
+npm install @opencreek/eslint-plugin-ts --save-dev
 ```
 
 ```sh
-yarn  add --dev @opencreek/eslint-plugin-storybook
+yarn  add --dev @opencreek/eslint-plugin-ts
 ```
 
 ## Usage
