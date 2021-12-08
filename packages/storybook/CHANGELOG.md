@@ -1,3 +1,15 @@
+# v0.4.1 (Wed Dec 08 2021)
+
+#### 🐛 Bug Fix
+
+- :bug: Fix release [#14](https://github.com/opencreek/eslint-plugin-ts/pull/14) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.4.0 (Wed Dec 08 2021)
 
 #### 🚀 Enhancement
