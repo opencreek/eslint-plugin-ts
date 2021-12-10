@@ -1,6 +1,6 @@
-# @opencreek/eslint-plugin-ts
+# @opencreek/eslint-plugin-nextjs
 
-Disalows relative path across the baseUrl of your tsconfig
+Opinionated linting rules for nextjs Apps
 
 ## Installation
 
@@ -10,23 +10,23 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `@opencreek/eslint-plugin-ts`:
+Next, install `@opencreek/eslint-plugin-nextjs`:
 
 ```sh
-npm install @opencreek/eslint-plugin-ts --save-dev
+npm install @opencreek/eslint-plugin-nextjs --save-dev
 ```
 
 ```sh
-yarn  add --dev @opencreek/eslint-plugin-ts
+yarn  add --dev @opencreek/eslint-plugin-nextjs
 ```
 
 ## Usage
 
-Add `@opencreek/ts` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Add `@opencreek/nextjs` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
 
 ```json
 {
-    "plugins": ["@opencreek/ts"]
+    "plugins": ["@opencreek/nextjs"]
 }
 ```
 
@@ -35,28 +35,14 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
     "rules": {
-        "@opencreek/ts/no-relative-imports": [
-            "error",
-            {
-                "baseUrl": "./src"
-            }
-        ]
+        "@opencreek/nextjs/no-literal-hrefs": "error",
+        "@opencreek/nextjs/pages-need-getLink-export": "error",
     }
 }
 ```
 
 ## Supported Rules
 
-### `@opencreek/ts/no-relative-imports` Disable relative imports.
+### `@opencreek/nextjs/no-literal-hrefs` Do not allow literal hrefs to nextjs pages
+### `@opencreek/nextjs/pages-need-getLink-export` Every nextjs page needs to export a getXYZLink function
 
-Config options
-
-```ts
-{
-    "baseUrl": "./src", // The base url that you have set in the tsconfig
-    "allowLocalImports": "local" // possible values: "local" | "in-base-path".
-    // "local": Allows local imports (eg.: "./test")
-    // "in-base-path": Allows everything that does not go back to the base url level (eg: "../../test" in "src/a/b/c/test.ts")
-}
-
-```

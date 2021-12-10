@@ -22,7 +22,7 @@ export default creator<Options, MessageIds>({
     meta: {
         type: "problem",
         docs: {
-            description: "Requires using non-relative imports with baseUrl",
+            description: "Pages must export a getLink function",
             recommended: "error",
         },
         fixable: "code",

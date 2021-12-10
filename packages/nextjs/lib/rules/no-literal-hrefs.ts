@@ -10,7 +10,7 @@ export default creator<Options, MessageIds>({
     meta: {
         type: "problem",
         docs: {
-            description: "Requires using non-relative imports with baseUrl",
+            description: "No Literal Hrefs",
             recommended: "error",
         },
         fixable: "code",
