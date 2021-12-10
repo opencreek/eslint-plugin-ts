@@ -1,0 +1,212 @@
+import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
+import type {
+    ExportNamedDeclaration,
+    ObjectExpression,
+    Property,
+    ReturnStatement,
+} from "estree"
+import "@opencreek/ext"
+
+const creator = RuleCreator((rule) => rule)
+
+export type Options = Record<never, never>[]
+
+export type MessageIds =
+    | "page-need-getLink-export"
+    | "no-return-statement"
+    | "no-pathname-in-return-argument"
+    | "pathname-does-not-match-page-path"
+
+export default creator<Options, MessageIds>({
+    name: "pages-need-getLink-export",
+    meta: {
+        type: "problem",
+        docs: {
+            description: "Requires using non-relative imports with baseUrl",
+            recommended: "error",
+        },
+        fixable: "code",
+        messages: {
+            "page-need-getLink-export":
+                "Page needs a getXYZLink function export",
+            "no-return-statement": "getLink function needs a return statement",
+            "no-pathname-in-return-argument": "No pathname in return argument",
+            "pathname-does-not-match-page-path":
+                "The returned pathname ({{pathName}}) does not match the path to the page {{pagePath}}",
+        },
+        schema: [{}],
+    },
+    defaultOptions: [],
+    create(context) {
+        let foundLinkFunction = false
+
+        return {
+            "Program:exit"(node) {
+                const path = context.getPhysicalFilename?.()
+
+                if (path == undefined) {
+                    console.error("Got no physical file name ?!")
+                    return
+                }
+
+                // no page file
+                if (!path?.includes("pages")) {
+                    return
+                }
+
+                if (!foundLinkFunction) {
+                    context.report({
+                        node,
+                        messageId: "page-need-getLink-export",
+                    })
+                }
+            },
+
+            ExportNamedDeclaration(node) {
+                const path = context.getPhysicalFilename?.()
+
+                if (path == undefined) {
+                    console.error("Got no physical file name ?!")
+                    return
+                }
+
+                if (node.type !== "ExportNamedDeclaration") {
+                    return
+                }
+
+                // no page file
+                if (!path?.includes("pages")) {
+                    return
+                }
+
+                const definition = (node as ExportNamedDeclaration).declaration
+
+                if (definition?.type !== "FunctionDeclaration") {
+                    return
+                }
+
+                if (definition.id?.type !== "Identifier") {
+                    return
+                }
+
+                // we have an incorrect name
+                if (!/get(.*?)Link/.test(definition.id.name)) {
+                    return
+                }
+
+                // we have a valid function
+                foundLinkFunction = true
+
+                const body = definition.body.body
+
+                // do we want to allow multiple returns in ifs / whiles?
+                const returnStatement = body.find(
+                    (statement) => statement.type === "ReturnStatement"
+                ) as ReturnStatement
+
+                if (returnStatement == undefined) {
+                    const reportNode = body[body.length - 1] ?? node
+
+                    if (reportNode == undefined) {
+                        return
+                    }
+
+                    context.report({
+                        node: node,
+                        messageId: "no-return-statement",
+                    })
+                }
+
+                // no direct Object expression
+                if (returnStatement?.argument?.type !== "ObjectExpression") {
+                    return
+                }
+
+                const returnObject =
+                    returnStatement?.argument as ObjectExpression
+
+                const pathProperty = returnObject.properties
+                    .filter((it) => it.type === "Property")
+                    .map((it) => it as Property)
+                    .find(
+                        (it) =>
+                            it.key.type === "Identifier" &&
+                            it.key.name === "pathname"
+                    )
+
+                if (pathProperty == undefined) {
+                    context.report({
+                        node: node,
+                        messageId: "no-pathname-in-return-argument",
+                    })
+                    return
+                }
+
+                const [_, ...pagePathSegments] = path.split("pages")
+
+                const pagePathWithSuffix = pagePathSegments.join("pages")
+                const [pagePath] = pagePathWithSuffix.split(".")
+
+                if (pagePath == undefined) {
+                    console.error("undefined pagePath ?!")
+                    return
+                }
+
+                const pageWithoutIndex = pagePath.replace("/index", "")
+
+                if (pathProperty.value.type === "Literal") {
+                    const pathValue = pathProperty.value.value
+
+                    if (pageWithoutIndex !== pathValue) {
+                        context.report({
+                            node: node,
+                            messageId: "pathname-does-not-match-page-path",
+                            data: {
+                                pathName: pathValue,
+                                pagePath: pageWithoutIndex,
+                            },
+                        })
+                        return
+                    }
+                }
+                if (pathProperty.value.type === "TemplateLiteral") {
+                    context.getSourceCode()
+                    const pathValue = pathProperty.value.quasis.zip(
+                        pathProperty.value.expressions
+                    )
+
+                    let rawTemplate = pathValue
+                        .map(([first, second]) => {
+                            if (second.type != "Identifier") {
+                                // todo, better handling lol
+                                throw new Error("Expected an identifier")
+                            }
+                            return first.value.raw + "[" + second?.name + "]"
+                        })
+                        .join("")
+
+                    if (
+                        pathValue.length != pathProperty?.value?.quasis?.length
+                    ) {
+                        rawTemplate +=
+                            pathProperty?.value?.quasis?.[
+                                pathProperty.value.quasis.length - 1
+                            ]?.value?.raw ?? ""
+                    }
+
+                    if (pageWithoutIndex !== rawTemplate) {
+                        context.report({
+                            node: node,
+                            messageId: "pathname-does-not-match-page-path",
+                            data: {
+                                pathName: rawTemplate,
+                                pagePath: pageWithoutIndex,
+                            },
+                        })
+                        return
+                    }
+                }
+            },
+        }
+    },
+})
