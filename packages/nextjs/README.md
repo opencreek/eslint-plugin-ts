@@ -36,13 +36,15 @@ Then configure the rules you want to use under the rules section.
 {
     "rules": {
         "@opencreek/nextjs/no-literal-hrefs": "error",
-        "@opencreek/nextjs/pages-need-getLink-export": "error"
+        "@opencreek/nextjs/pages-need-get-link-function-export": "error"
     }
 }
 ```
 
 ## Supported Rules
 
-### `@opencreek/nextjs/no-literal-hrefs` Do not allow literal hrefs to nextjs pages
+### `@opencreek/nextjs/no-literal-hrefs`
+Do not allow literal hrefs to nextjs pages
 
-### `@opencreek/nextjs/pages-need-getLink-export` Every nextjs page needs to export a getXYZLink function
+### `@opencreek/nextjs/pages-need-get-link-function-export`
+Every nextjs page needs to export a getXYZLink function

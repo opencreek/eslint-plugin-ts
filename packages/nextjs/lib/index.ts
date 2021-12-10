@@ -4,7 +4,7 @@
  */
 
 import noLiteralHrefs from "./rules/no-literal-hrefs"
-import pagesNeedGetLinkExport from "./rules/pages-need-getLink-export"
+import pagesNeedGetLinkExport from "./rules/pages-need-get-link-function-export"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -16,14 +16,14 @@ import pagesNeedGetLinkExport from "./rules/pages-need-getLink-export"
 
 export const rules = {
     "no-literal-hrefs": noLiteralHrefs,
-    "pages-needs-getLink-export": pagesNeedGetLinkExport,
+    "pages-need-get-link-function-export": pagesNeedGetLinkExport,
 }
 
 export const configs = {
     recommended: {
         rules: {
             "@opencreek/nextjs/no-literal-hrefs": "error",
-            "@opencreek/nextjs/pagesNeedGet": "error",
+            "@opencreek/nextjs/pages-need-get-link-function-export": "error",
         },
     },
 }

@@ -15,7 +15,7 @@ export default creator<Options, MessageIds>({
         },
         fixable: "code",
         messages: {
-            "no-literal-hrefs": "No literal hrefs allowed",
+            "no-literal-hrefs": "No literal hrefs allowed. Use the get link function of the page instead.",
         },
         schema: [{}],
     },
@@ -24,6 +24,11 @@ export default creator<Options, MessageIds>({
         return {
             JSXAttribute(node) {
                 if (node.value == null) {
+                    return
+                }
+
+                // no href, so we don't need to check
+                if (node.name.name !== "href") {
                     return
                 }
 

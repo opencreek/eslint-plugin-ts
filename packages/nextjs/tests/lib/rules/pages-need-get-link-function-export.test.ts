@@ -1,5 +1,5 @@
 import { ESLintUtils } from "@typescript-eslint/experimental-utils"
-import pagesNeedGetLinkExport from "../../../lib/rules/pages-need-getLink-export"
+import pagesNeedGetLinkExport from "../../../lib/rules/pages-need-get-link-function-export"
 
 const RuleTester = ESLintUtils.RuleTester
 
@@ -7,7 +7,7 @@ const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
 })
 
-ruleTester.run("pages-need-getLink-export", pagesNeedGetLinkExport, {
+ruleTester.run("pages-need-get-link-function-export", pagesNeedGetLinkExport, {
     valid: [
         {
             options: [],
@@ -57,7 +57,7 @@ ruleTester.run("pages-need-getLink-export", pagesNeedGetLinkExport, {
             filename: "/src/pages/nested/deep/test.js",
             errors: [
                 {
-                    messageId: "page-need-getLink-export",
+                    messageId: "page-need-get-link-function-export",
                 },
             ],
         },
@@ -67,7 +67,7 @@ ruleTester.run("pages-need-getLink-export", pagesNeedGetLinkExport, {
             filename: "/pages/nested/deep/test.js",
             errors: [
                 {
-                    messageId: "page-need-getLink-export",
+                    messageId: "page-need-get-link-function-export",
                 },
             ],
         },

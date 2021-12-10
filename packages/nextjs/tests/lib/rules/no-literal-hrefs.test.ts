@@ -29,6 +29,16 @@ ruleTester.run("no-literal-hrefs", noLiteralHrefs, {
             code: '<Link href={"https://example.org"} />',
             filename: "/src/nested/deep/test.js",
         },
+        {
+            options: [],
+            code: '<Link bla={"/example.org"} />',
+            filename: "/src/nested/deep/test.js",
+        },
+        {
+            options: [],
+            code: '<Link bla="/example.org" />',
+            filename: "/src/nested/deep/test.js",
+        },
     ],
     invalid: [
         {

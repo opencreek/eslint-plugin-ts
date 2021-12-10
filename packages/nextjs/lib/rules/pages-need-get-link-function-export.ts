@@ -12,13 +12,13 @@ const creator = RuleCreator((rule) => rule)
 export type Options = Record<never, never>[]
 
 export type MessageIds =
-    | "page-need-getLink-export"
+    | "page-need-get-link-function-export"
     | "no-return-statement"
     | "no-pathname-in-return-argument"
     | "pathname-does-not-match-page-path"
 
 export default creator<Options, MessageIds>({
-    name: "pages-need-getLink-export",
+    name: "pages-need-get-link-function-export",
     meta: {
         type: "problem",
         docs: {
@@ -27,7 +27,7 @@ export default creator<Options, MessageIds>({
         },
         fixable: "code",
         messages: {
-            "page-need-getLink-export":
+            "page-need-get-link-function-export":
                 "Page needs a getXYZLink function export",
             "no-return-statement": "getLink function needs a return statement",
             "no-pathname-in-return-argument": "No pathname in return argument",
@@ -57,7 +57,7 @@ export default creator<Options, MessageIds>({
                 if (!foundLinkFunction) {
                     context.report({
                         node,
-                        messageId: "page-need-getLink-export",
+                        messageId: "page-need-get-link-function-export",
                     })
                 }
             },
@@ -90,7 +90,7 @@ export default creator<Options, MessageIds>({
                 }
 
                 // we have an incorrect name
-                if (!/get(.*?)Link/.test(definition.id.name)) {
+                if (!/^get.*?Link$/.test(definition.id.name)) {
                     return
                 }
 
