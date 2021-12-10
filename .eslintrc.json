@@ -14,6 +14,16 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
+    "rules": {
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "varsIgnorePattern": "^_",
+                "argsIgnorePattern": "^_",
+                "ignoreRestSiblings": true
+            }
+        ]
+    },
     "overrides": [
         {
             "files": ["tests/**/*.ts"],
