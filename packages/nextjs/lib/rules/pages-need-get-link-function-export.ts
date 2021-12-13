@@ -7,6 +7,7 @@ import type {
 } from "estree"
 import "@opencreek/ext"
 import { getPackageRoot } from "../utils"
+import path from "path"
 
 const creator = RuleCreator((rule) => rule)
 
@@ -41,24 +42,23 @@ export default creator<Options, MessageIds>({
     create(context) {
         let foundLinkFunction = false
 
+        const filename = context.getPhysicalFilename?.()
+
+        if (filename == undefined) {
+            console.error("Got no physical file name ?!")
+            return
+        }
+        const packageBasePath = getPackageRoot(filename)
+
+        // no page file
+        const isAPage =
+            !filename?.includes(path.join(packageBasePath, "/pages")) &&
+            !filename?.includes(path.join(packageBasePath, "/src/pages"))
+
+        if (isAPage) return {}
+
         return {
             "Program:exit"(node) {
-                const path = context.getPhysicalFilename?.()
-
-                if (path == undefined) {
-                    console.error("Got no physical file name ?!")
-                    return
-                }
-                const packageBasePath = getPackageRoot(path)
-
-                // no page file
-                if (
-                    !path?.includes(packageBasePath + "/pages") &&
-                    !path?.includes(packageBasePath + "/src/pages")
-                ) {
-                    return
-                }
-
                 if (!foundLinkFunction) {
                     context.report({
                         node,
@@ -68,24 +68,7 @@ export default creator<Options, MessageIds>({
             },
 
             ExportNamedDeclaration(node) {
-                const path = context.getPhysicalFilename?.()
-
-                if (path == undefined) {
-                    console.error("Got no physical file name ?!")
-                    return
-                }
-
-                const packageBasePath = getPackageRoot(path)
-
                 if (node.type !== "ExportNamedDeclaration") {
-                    return
-                }
-
-                // no page file
-                if (
-                    !path?.includes(packageBasePath + "/pages") &&
-                    !path?.includes(packageBasePath + "/src/pages")
-                ) {
                     return
                 }
 
@@ -152,7 +135,7 @@ export default creator<Options, MessageIds>({
                     return
                 }
 
-                const [_, ...pagePathSegments] = path.split("pages")
+                const [_, ...pagePathSegments] = filename.split("pages")
 
                 const pagePathWithSuffix = pagePathSegments.join("pages")
                 const [pagePath] = pagePathWithSuffix.split(".")

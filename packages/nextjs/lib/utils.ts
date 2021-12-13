@@ -1,9 +1,10 @@
 import fs from "fs"
+import path from "path"
 
 const isTest = process.env.NODE_ENV === "test"
 
-export function getPackageRoot(path: string): string {
-    let ret = path
+export function getPackageRoot(filePath: string): string {
+    let ret = filePath
     if (isTest) return ""
 
     while (ret != "") {
@@ -11,7 +12,7 @@ export function getPackageRoot(path: string): string {
             fs.accessSync(ret)
             return ret
         } catch {
-            ret = ret.substring(0, ret.lastIndexOf("/"))
+            ret = path.dirname(ret)
         }
     }
 
