@@ -46,7 +46,7 @@ export default creator<Options, MessageIds>({
 
         if (filename == undefined) {
             console.error("Got no physical file name ?!")
-            return
+            return {}
         }
         const packageBasePath = getPackageRoot(filename)
 
