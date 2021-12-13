@@ -6,6 +6,7 @@ import type {
     ReturnStatement,
 } from "estree"
 import "@opencreek/ext"
+import { getPackageRoot } from "../utils"
 
 const creator = RuleCreator((rule) => rule)
 
@@ -48,9 +49,13 @@ export default creator<Options, MessageIds>({
                     console.error("Got no physical file name ?!")
                     return
                 }
+                const packageBasePath = getPackageRoot(path)
 
                 // no page file
-                if (!path?.includes("pages")) {
+                if (
+                    !path?.includes(packageBasePath + "/pages") &&
+                    !path?.includes(packageBasePath + "/src/pages")
+                ) {
                     return
                 }
 
@@ -70,12 +75,17 @@ export default creator<Options, MessageIds>({
                     return
                 }
 
+                const packageBasePath = getPackageRoot(path)
+
                 if (node.type !== "ExportNamedDeclaration") {
                     return
                 }
 
                 // no page file
-                if (!path?.includes("pages")) {
+                if (
+                    !path?.includes(packageBasePath + "/pages") &&
+                    !path?.includes(packageBasePath + "/src/pages")
+                ) {
                     return
                 }
 

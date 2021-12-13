@@ -15,7 +15,8 @@ export default creator<Options, MessageIds>({
         },
         fixable: "code",
         messages: {
-            "no-literal-hrefs": "No literal hrefs allowed. Use the get link function of the page instead.",
+            "no-literal-hrefs":
+                "No literal hrefs allowed. Use the get link function of the page instead.",
         },
         schema: [{}],
     },
