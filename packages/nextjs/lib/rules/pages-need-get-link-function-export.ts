@@ -51,11 +51,18 @@ export default creator<Options, MessageIds>({
         const packageBasePath = getPackageRoot(filename)
 
         // no page file
-        const isAPage =
-            !filename?.includes(path.join(packageBasePath, "/pages")) &&
-            !filename?.includes(path.join(packageBasePath, "/src/pages"))
+        const isNotAPage =
+            !filename?.startsWith(path.join(packageBasePath, "/pages")) &&
+            !filename?.startsWith(path.join(packageBasePath, "/src/pages"))
 
-        if (isAPage) return {}
+        if (isNotAPage) return {}
+
+        const pagesDirectory = (() => {
+            if (filename?.startsWith(path.join(packageBasePath, "/pages"))) {
+                return path.join(packageBasePath, "/pages")
+            }
+            return path.join(packageBasePath, "/src/pages")
+        })()
 
         return {
             "Program:exit"(node) {
@@ -135,9 +142,8 @@ export default creator<Options, MessageIds>({
                     return
                 }
 
-                const [_, ...pagePathSegments] = filename.split("pages")
+                const pagePathWithSuffix = filename.replace(pagesDirectory, "")
 
-                const pagePathWithSuffix = pagePathSegments.join("pages")
                 const [pagePath] = pagePathWithSuffix.split(".")
 
                 if (pagePath == undefined) {

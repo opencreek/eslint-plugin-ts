@@ -9,7 +9,7 @@ export function getPackageRoot(filePath: string): string {
 
     while (ret != "") {
         try {
-            fs.accessSync(ret)
+            fs.accessSync(path.join(ret, "package.json"))
             return ret
         } catch {
             ret = path.dirname(ret)
