@@ -16,7 +16,7 @@ export default creator<Options, MessageIds>({
         fixable: "code",
         messages: {
             "no-literal-hrefs":
-                "No literal hrefs allowed. Use the get link function of the page instead.",
+                "No literal hrefs allowed. Use a shared function instead (like get link from @opencreek/nextjs/pages-need-get-link-function-export).",
         },
         schema: [{}],
     },
