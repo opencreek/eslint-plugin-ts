@@ -1,0 +1,69 @@
+import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
+
+const creator = RuleCreator((rule) => rule)
+
+export type Options = Record<never, never>[]
+
+export type MessageIds = "no-literal-hrefs"
+export default creator<Options, MessageIds>({
+    name: "no-relative-imports",
+    meta: {
+        type: "problem",
+        docs: {
+            description: "No Literal Hrefs",
+            recommended: "error",
+        },
+        fixable: "code",
+        messages: {
+            "no-literal-hrefs":
+                "No literal hrefs allowed. Use a shared function instead (like get link from @opencreek/nextjs/pages-need-get-link-function-export).",
+        },
+        schema: [{}],
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            JSXAttribute(node) {
+                if (node.value == null) {
+                    return
+                }
+
+                // no href, so we don't need to check
+                if (node.name.name !== "href") {
+                    return
+                }
+
+                // we resolve values in `{}` as well
+                const value = (() => {
+                    if (node.value.type === "JSXExpressionContainer") {
+                        return node.value.expression
+                    }
+
+                    return node.value
+                })()
+
+                // no literal
+                if (value.type !== "Literal") {
+                    return
+                }
+                const literalValue = value.value
+
+                // no string
+                if (typeof literalValue !== "string") {
+                    return
+                }
+
+                //If we start with http (or https), we allow it to allow links to the outside
+                if (literalValue.startsWith("http")) {
+                    return
+                }
+
+                context.report({
+                    node: value,
+                    messageId: "no-literal-hrefs",
+                    data: {},
+                })
+            },
+        }
+    },
+})
