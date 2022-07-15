@@ -7,7 +7,7 @@
         "skipLibCheck": true,
         "strict": true,
         "esModuleInterop": true,
-        "module": "None",
+        "module": "commonjs",
         "moduleResolution": "node",
         "isolatedModules": true,
         "jsx": "preserve",
