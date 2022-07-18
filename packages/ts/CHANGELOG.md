@@ -1,3 +1,15 @@
+# v0.4.2 (Mon Jul 18 2022)
+
+#### 🐛 Bug Fix
+
+- :bug:  ESM [#17](https://github.com/opencreek/eslint-plugin-ts/pull/17) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.4.1 (Wed Dec 08 2021)
 
 #### 🐛 Bug Fix
