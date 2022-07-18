@@ -1,12 +1,5 @@
 import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
-import type {
-    AssignmentExpression,
-    ExpressionStatement,
-    FunctionDeclaration,
-    Identifier,
-    MemberExpression,
-    Program,
-} from "@typescript-eslint/types/dist/ast-spec"
+import type { TSESTree } from "@typescript-eslint/experimental-utils"
 
 const creator = RuleCreator((rule) => rule)
 
@@ -33,8 +26,8 @@ export default creator<Options, MessageIds>({
             ExportDefaultDeclaration(node) {
                 if (node.declaration.type === "FunctionDeclaration") {
                     const functionDeclaration =
-                        node.declaration as FunctionDeclaration
-                    const parent = node.parent as Program
+                        node.declaration as TSESTree.FunctionDeclaration
+                    const parent = node.parent as TSESTree.Program
 
                     if (parent == null)
                         throw new Error("Can not resolve parent")
@@ -42,22 +35,24 @@ export default creator<Options, MessageIds>({
                     const assignmentToDefault = parent.body.some((it) => {
                         if (
                             it.type !== "ExpressionStatement" ||
-                            (it as ExpressionStatement).expression.type !==
-                                "AssignmentExpression"
+                            (it as TSESTree.ExpressionStatement).expression
+                                .type !== "AssignmentExpression"
                         ) {
                             return false
                         }
 
-                        const expression = it.expression as AssignmentExpression
+                        const expression =
+                            it.expression as TSESTree.AssignmentExpression
                         if (expression.left.type !== "MemberExpression") {
                             return false
                         }
-                        const left = expression.left as MemberExpression
+                        const left =
+                            expression.left as TSESTree.MemberExpression
                         if (left.object.type !== "Identifier") {
                             return false
                         }
 
-                        const identifier = left.object as Identifier
+                        const identifier = left.object as TSESTree.Identifier
                         return functionDeclaration.id?.name === identifier.name
                     })
 
