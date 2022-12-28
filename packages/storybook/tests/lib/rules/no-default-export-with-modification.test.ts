@@ -1,7 +1,7 @@
 import nextjsNoDefaultExportFunction from "../../../lib/rules/no-default-export-with-modification"
-import { ESLintUtils } from "@typescript-eslint/experimental-utils"
+import { ESLintUtils } from "@typescript-eslint/utils"
 
-const RuleTester = ESLintUtils.RuleTester
+const { RuleTester } = ESLintUtils
 
 const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
