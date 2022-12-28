@@ -21,6 +21,18 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "LionC",
+      "name": "Leon Strauss",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3419961?v=4",
+      "profile": "https://lionc.de/",
+      "contributions": [
+        "doc",
+        "infra",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
