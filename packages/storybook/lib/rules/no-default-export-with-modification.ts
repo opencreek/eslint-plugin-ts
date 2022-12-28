@@ -1,6 +1,7 @@
-import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
-import type { TSESTree } from "@typescript-eslint/experimental-utils"
+import { ESLintUtils } from "@typescript-eslint/utils"
+import type { TSESTree } from "@typescript-eslint/utils"
 
+const { RuleCreator } = ESLintUtils
 const creator = RuleCreator((rule) => rule)
 
 export type Options = Record<never, never>[]

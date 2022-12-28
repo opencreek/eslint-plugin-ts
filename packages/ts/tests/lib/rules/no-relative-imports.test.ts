@@ -1,7 +1,7 @@
 import noRelativeImports from "../../../lib/rules/no-relative-imports"
-import { ESLintUtils } from "@typescript-eslint/experimental-utils"
+import { ESLintUtils } from "@typescript-eslint/utils"
 
-const RuleTester = ESLintUtils.RuleTester
+const { RuleTester } = ESLintUtils
 
 const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",

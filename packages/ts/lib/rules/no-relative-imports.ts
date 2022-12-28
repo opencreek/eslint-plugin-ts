@@ -1,6 +1,7 @@
-import { RuleCreator } from "@typescript-eslint/experimental-utils/dist/eslint-utils"
+import { ESLintUtils } from "@typescript-eslint/utils"
 import path from "path"
 
+const { RuleCreator } = ESLintUtils
 const creator = RuleCreator((rule) => rule)
 
 export type Options = {
