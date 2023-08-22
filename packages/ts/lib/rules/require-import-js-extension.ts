@@ -66,14 +66,14 @@ export default creator<Options, MessageIds>({
                         if (directFileExist) {
                             return fixer.replaceText(
                                 node.source,
-                                `${source}.js`
+                                `"${source}.js"`
                             )
                         }
 
                         if (indexFileExist) {
                             return fixer.replaceText(
                                 node.source,
-                                `${source}/index.js`
+                                `"${source}/index.js"`
                             )
                         }
 
