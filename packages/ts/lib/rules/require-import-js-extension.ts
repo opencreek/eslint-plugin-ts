@@ -42,6 +42,11 @@ export default creator<Options, MessageIds>({
             ImportDeclaration(node) {
                 const source = node.source.value
 
+                // only work on relative imports otherwise packages that have the same name as a file will break this
+                if (!source.startsWith(".")) {
+                   return
+                }
+
                 if (possibleExtensions.some((it) => source.endsWith(it))) {
                     return
                 }
