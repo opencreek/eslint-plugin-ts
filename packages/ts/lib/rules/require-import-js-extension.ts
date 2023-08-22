@@ -42,7 +42,7 @@ export default creator<Options, MessageIds>({
             ImportDeclaration(node) {
                 const source = node.source.value
 
-                if (source.indexOf(".") !== -1) {
+                if (possibleExtensions.some((it) => source.endsWith(it))) {
                     return
                 }
 
