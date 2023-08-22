@@ -4,6 +4,7 @@
  */
 
 import noRelativeImports from "./rules/no-relative-imports"
+import requireImportJsExtension from "./rules/require-import-js-extension"
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -15,6 +16,7 @@ import noRelativeImports from "./rules/no-relative-imports"
 
 export const rules = {
     "no-relative-imports": noRelativeImports,
+    "require-import-js-extension": requireImportJsExtension,
 }
 
 export const configs = {
