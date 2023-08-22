@@ -1,6 +1,7 @@
 import { ESLintUtils } from "@typescript-eslint/utils"
 import path from "path"
 import fs from "fs"
+import type { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint/Rule"
 
 const { RuleCreator } = ESLintUtils
 const creator = RuleCreator((rule) => rule)
@@ -8,6 +9,19 @@ const creator = RuleCreator((rule) => rule)
 export type Options = Record<never, never>[]
 
 export type MessageIds = "require-import-js-extension"
+const possibleExtensions = [".js", ".jsx", ".ts", ".tsx"]
+
+function pathExistsWithAnyExtension(
+    file: string,
+    context: RuleContext<"require-import-js-extension", any>
+) {
+    return possibleExtensions.some((it) => {
+        return fs.existsSync(
+            path.resolve(path.dirname(context.getFilename()), file + it)
+        )
+    })
+}
+
 export default creator<Options, MessageIds>({
     name: "require-import-js-extension",
     meta: {
@@ -18,7 +32,7 @@ export default creator<Options, MessageIds>({
         },
         fixable: "code",
         messages: {
-            "require-import-js-extension": "No relative imports",
+            "require-import-js-extension": "Require .js extension",
         },
         schema: [],
     },
@@ -28,21 +42,17 @@ export default creator<Options, MessageIds>({
             ImportDeclaration(node) {
                 const source = node.source.value
 
-                if (source.indexOf(".") === -1) {
+                if (source.indexOf(".") !== -1) {
                     return
                 }
 
-                const directFileExist = fs.existsSync(
-                    path.resolve(
-                        path.dirname(context.getFilename()),
-                        source + ".js"
-                    )
+                const directFileExist = pathExistsWithAnyExtension(
+                    source,
+                    context
                 )
-                const indexFileExist = fs.existsSync(
-                    path.resolve(
-                        path.dirname(context.getFilename()),
-                        source + "/index.js"
-                    )
+                const indexFileExist = pathExistsWithAnyExtension(
+                    source + "/index",
+                    context
                 )
 
                 context.report({
