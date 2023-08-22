@@ -55,6 +55,10 @@ export default creator<Options, MessageIds>({
                     context
                 )
 
+                if (!directFileExist && !indexFileExist) {
+                    return
+                }
+
                 context.report({
                     node,
                     messageId: "require-import-js-extension",
